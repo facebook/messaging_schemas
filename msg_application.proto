@@ -1,0 +1,74 @@
+// Copyright (c) Meta Platforms, Inc. and affiliates.
+// This source code is licensed under the BSD 3-Clause License found in the
+// LICENSE file in the root directory of this source tree.
+
+syntax = "proto2";
+
+import "common.proto";
+
+message MessageApplication {
+  message EphemeralSetting {
+    optional uint32 ephemeral_expiration = 2;
+    optional int64 ephemeral_setting_timestamp = 3;
+    optional bool is_ephemeral_setting_reset = 4;
+  }
+  message Content {}
+  message Signal {}
+  message ApplicationData {}
+  message SubProtocolPayload {
+    optional FutureProofBehavior future_proof = 1;
+    oneof sub_protocol {
+      SubProtocol consumer_message  = 2;
+      SubProtocol business_message = 3;
+      SubProtocol payment_message = 4;
+      SubProtocol multi_device = 5;
+      SubProtocol voip = 6;
+      SubProtocol armadillo = 7;
+    }
+  }
+  message Payload {
+    oneof content {
+      Content core_content = 1;
+      Signal signal = 2;
+      ApplicationData application_data = 3;
+      SubProtocolPayload sub_protocol = 4;
+    }
+  }
+  message Metadata {
+    message EphemeralSettingMap {
+      optional string chat_jid = 1 [(jid) = true];
+      optional EphemeralSetting ephemeral_setting = 2;
+    }
+    message QuotedMessage {
+      optional string stanza_id = 1;
+      optional string remote_jid = 2 [(jid) = true];
+      optional string participant = 3 [(jid) = true];
+      optional Payload payload = 4;
+    }
+    oneof ephemeral {
+      EphemeralSetting chat_ephemeral_setting = 1;
+      EphemeralSettingMap ephemeral_setting_list = 2;
+      bytes ephemeral_shared_secret = 3;
+    }
+    optional uint32 forwarding_score = 5;
+    optional bool is_forwarded = 6;
+    optional SubProtocol business_metadata = 7;
+    optional bytes franking_key = 8;
+    optional int32 franking_version = 9;
+    optional QuotedMessage quoted_message = 10;
+    enum ThreadType {
+      DEFAULT = 0;
+      VANISH_MODE = 1;
+      DISAPPEARING_MESSAGES = 2;
+    }
+    optional ThreadType thread_type = 11;
+    optional string readonly_metadata_dataclass = 12;
+    optional string group_id = 13;
+    optional uint32 group_size = 14;
+    optional uint32 group_index = 15;
+    optional string bot_response_id = 16;
+    optional string collapsible_id = 17;
+  }
+  optional Payload payload = 1;
+  optional Metadata metadata = 2;
+}

@@ -1,0 +1,159 @@
+// Copyright (c) Meta Platforms, Inc. and affiliates.
+// This source code is licensed under the BSD 3-Clause License found in the
+// LICENSE file in the root directory of this source tree.
+
+syntax = "proto2";
+
+import "common.proto";
+
+message WAMediaTransport {
+  message Integral {
+    optional bytes file_sha256 = 1;
+    optional bytes media_key = 2;
+    optional bytes file_enc_sha256 = 3;
+    optional string direct_path = 4;
+    optional int64 media_key_timestamp = 5;
+  }
+  message Ancillary {
+    message Thumbnail {
+      message DownloadableThumbnail {
+        optional bytes file_sha256 = 1;
+        optional bytes file_enc_sha256 = 2;
+        optional string direct_path = 3;
+        optional bytes media_key = 4;
+        optional int64 media_key_timestamp = 5;
+	      optional string object_id = 6;
+        optional bytes thumbnail_scans_sidecar = 7;
+        repeated uint32 thumbnail_scan_lengths = 8;
+      }
+      optional bytes jpeg_thumbnail = 1;
+      optional DownloadableThumbnail downloadable_thumbnail = 2;
+      optional uint32 thumbnail_width = 3;
+      optional uint32 thumbnail_height = 4;
+    }
+    optional uint64 file_length = 1;
+    optional string mimetype = 2;
+    optional Thumbnail thumbnail = 3;
+    optional string object_id = 4;
+  }
+  optional Integral integral = 1;
+  optional Ancillary ancillary = 2;
+}
+message ImageTransport {
+  message Integral {
+    optional WAMediaTransport transport = 1;
+  }
+  message Ancillary {
+    enum HDType {
+      NONE = 0;
+      LQ_4K = 1;
+      HQ_4K = 2;
+    }
+    optional uint32 height = 1;
+    optional uint32 width = 2;
+    optional bytes scans_sidecar = 3;
+    repeated uint32 scan_lengths = 4;
+    optional bytes mid_quality_file_sha256 = 5;
+    optional HDType hd_type = 6;
+  }
+  optional Integral integral = 1;
+  optional Ancillary ancillary = 2;
+}
+message VideoTransport {
+  message Integral {
+    optional WAMediaTransport transport = 1;
+  }
+  message Ancillary {
+    enum Attribution {
+      NONE = 0;
+      GIPHY = 1;
+      TENOR = 2;
+    }
+    optional uint32 seconds = 1;
+    optional MessageText caption = 2;
+    optional bool gif_playback = 3;
+    optional uint32 height = 4;
+    optional uint32 width = 5;
+    optional bytes sidecar = 6;
+    optional Attribution gif_attribution = 7;
+  }
+  optional Integral integral = 1;
+  optional Ancillary ancillary = 2;
+}
+message AudioTransport {
+  message Integral {
+    optional WAMediaTransport transport = 1;
+    enum AudioFormat {
+      UNKNOWN = 0;
+      OPUS = 1;
+    }
+    optional AudioFormat audio_format = 2;
+  }
+  message Ancillary {
+    message AvatarAudio {
+      enum AnimationsType {
+        TALKING_A = 0;
+        IDLE_A = 1;
+        TALKING_B = 2;
+        IDLE_B = 3;
+        BACKGROUND = 4;
+      }
+      message DownloadableAvatarAnimations {
+        optional bytes file_sha256 = 1;
+        optional bytes file_enc_sha256 = 2;
+        optional string direct_path = 3;
+        optional bytes media_key = 4;
+        optional int64 media_key_timestamp = 5;
+        optional string object_id = 6;
+        optional AnimationsType animations_type = 7;
+      }
+      optional uint32 pose_id = 1;
+      repeated DownloadableAvatarAnimations avatar_animations = 2;
+    }
+    optional uint32 seconds = 1;
+    optional AvatarAudio avatar_audio = 2;
+  }
+  optional Integral integral = 1;
+  optional Ancillary ancillary = 2;
+}
+message DocumentTransport {
+  message Integral {
+    optional WAMediaTransport transport = 1;
+  }
+  message Ancillary {
+    optional uint32 page_count = 1;
+  }
+  optional Integral integral = 1;
+  optional Ancillary ancillary = 2;
+}
+message StickerTransport {
+  message Integral {
+    optional WAMediaTransport transport = 1;
+    optional bool is_animated = 2;
+  }
+  message Ancillary {
+    optional uint32 page_count = 1;
+    optional uint32 height = 2;
+    optional uint32 width = 3;
+    optional uint32 first_frame_length = 4;
+    optional bytes first_frame_sidecar = 5;
+    optional string mustache_text = 6;
+    optional bool is_third_party = 7;
+    optional string receiver_fetch_id = 8;
+  }
+  optional Integral integral = 1;
+  optional Ancillary ancillary = 2;
+}
+message ContactTransport {
+  message Integral {
+    oneof contact {
+      string vcard = 1;
+      WAMediaTransport downloadable_vcard = 2;
+    }
+  }
+  message Ancillary {
+    optional string display_name = 1;
+  }
+  optional Integral integral = 1;
+  optional Ancillary ancillary = 2;
+}

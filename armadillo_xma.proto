@@ -1,0 +1,126 @@
+// Copyright (c) Meta Platforms, Inc. and affiliates.
+// This source code is licensed under the BSD 3-Clause License found in the
+// LICENSE file in the root directory of this source tree.
+
+syntax = "proto2";
+
+import "common.proto";
+
+message ExtendedContentMessage {
+  optional SubProtocol associated_message = 1;
+  enum ExtendedContentType {
+    IG_STORY_PHOTO_MENTION = 4;
+    IG_SINGLE_IMAGE_POST_SHARE = 9;
+    IG_MULTIPOST_SHARE = 10;
+    IG_SINGLE_VIDEO_POST_SHARE = 11;
+    IG_STORY_PHOTO_SHARE = 12;
+    IG_STORY_VIDEO_SHARE = 13;
+    IG_CLIPS_SHARE = 14;
+    IG_IGTV_SHARE = 15;
+    IG_SHOP_SHARE = 16;
+    IG_PROFILE_SHARE = 19;
+    IG_STORY_PHOTO_HIGHLIGHT_SHARE = 20;
+    IG_STORY_VIDEO_HIGHLIGHT_SHARE = 21;
+    IG_STORY_REPLY = 22;
+    IG_STORY_REACTION = 23;
+    IG_STORY_VIDEO_MENTION = 24;
+    IG_STORY_HIGHLIGHT_REPLY = 25;
+    IG_STORY_HIGHLIGHT_REACTION = 26;
+    IG_EXTERNAL_LINK = 27;
+    IG_RECEIVER_FETCH = 28;
+    FB_FEED_SHARE = 1000;
+    FB_STORY_REPLY = 1001;
+    FB_STORY_SHARE = 1002;
+    FB_STORY_MENTION = 1003;
+    FB_FEED_VIDEO_SHARE = 1004;
+    FB_GAMING_CUSTOM_UPDATE = 1005;
+    FB_PRODUCER_STORY_REPLY = 1006;
+    FB_EVENT = 1007;
+    FB_FEED_POST_PRIVATE_REPLY = 1008;
+    FB_SHORT = 1009;
+    FB_COMMENT_MENTION_SHARE = 1010;
+    MSG_EXTERNAL_LINK_SHARE = 2000;
+    MSG_P2P_PAYMENT = 2001;
+    MSG_LOCATION_SHARING = 2002;
+    MSG_LOCATION_SHARING_V2 = 2003;
+    MSG_HIGHLIGHTS_TAB_FRIEND_UPDATES_REPLY = 2004;
+    MSG_HIGHLIGHTS_TAB_LOCAL_EVENT_REPLY = 2005;
+    MSG_RECEIVER_FETCH = 2006;
+    MSG_IG_MEDIA_SHARE = 2007;
+    MSG_GEN_AI_SEARCH_PLUGIN_RESPONSE = 2008;
+    MSG_REELS_LIST = 2009;
+    MSG_CONTACT = 2010;
+    MSG_THREADS_POST_SHARE = 2011;
+    MSG_FILE = 2012;
+    MSG_AVATAR_DETAILS = 2013;
+    MSG_AI_CONTACT = 2014;
+    MSG_MEMORIES_SHARE = 2015;
+    MSG_SHARED_ALBUM_REPLY = 2016;
+    MSG_SHARED_ALBUM = 2017;
+    MSG_OCCAMADILLO_XMA = 2018;
+    MSG_GEN_AI_SUBSCRIPTION = 2021;
+    MSG_GEN_AI_REMINDER = 2022;
+    RTC_AUDIO_CALL = 3000;
+    RTC_VIDEO_CALL = 3001;
+    RTC_MISSED_AUDIO_CALL = 3002;
+    RTC_MISSED_VIDEO_CALL = 3003;
+    RTC_GROUP_AUDIO_CALL = 3004;
+    RTC_GROUP_VIDEO_CALL = 3005;
+    RTC_MISSED_GROUP_AUDIO_CALL = 3006;
+    RTC_MISSED_GROUP_VIDEO_CALL = 3007;
+    DATACLASS_SENDER_COPY = 4000;
+  }
+  optional ExtendedContentType target_type = 2;
+  optional string target_username = 3;
+  optional string target_id = 4;
+  optional int64 target_expiring_at_sec = 5;
+  enum XMALayoutType {
+    SINGLE = 0;
+    HSCROLL = 1;
+    PORTRAIT = 3;
+    STANDARD_DXMA = 12;
+    LIST_DXMA = 15;
+    GRID = 16;
+  }
+  optional XMALayoutType xma_layout_type = 6;
+  message CTA {
+    enum ButtonType {
+      OPEN_NATIVE = 11;
+    }
+    optional ButtonType button_type = 1;
+    optional string title = 2;
+    optional string action_url = 3;
+    optional string native_url = 4;
+    optional string cta_type = 5;
+    optional string action_content_blob = 6;
+  }
+  repeated CTA ctas = 7;
+  repeated SubProtocol previews = 8;
+  optional string title_text = 9;
+  optional string subtitle_text = 10;
+  optional uint32 max_title_num_of_lines = 11;
+  optional uint32 max_subtitle_num_of_lines = 12;
+  optional SubProtocol favicon = 13;
+  optional SubProtocol header_image = 14;
+  optional string header_title = 15;
+  enum OverlayIconGlyph {
+  	INFO            = 0;
+    EYE_OFF         = 1;
+    NEWS_OFF        = 2;
+    WARNING         = 3;
+    PRIVATE         = 4;
+    NONE            = 5;
+    MEDIA_LABEL     = 6;
+    POST_COVER      = 7;
+    POST_LABEL      = 8;
+    WARNING_SCREENS = 9;
+  }
+  optional OverlayIconGlyph overlay_icon_glyph = 16;
+  optional string overlay_title = 17;
+  optional string overlay_description = 18;
+  optional string sent_with_message_id = 19;
+  optional string message_text = 20;
+  optional string header_subtitle = 21;
+  optional string xma_dataclass = 22;
+  optional string content_ref = 23;
+}

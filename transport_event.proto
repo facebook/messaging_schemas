@@ -1,0 +1,33 @@
+// Copyright (c) Meta Platforms, Inc. and affiliates.
+// This source code is licensed under the BSD 3-Clause License found in the
+// LICENSE file in the root directory of this source tree.
+
+syntax = "proto2";
+
+message TransportEvent {
+  message Placeholder {
+    enum Type {
+      DECRYPTION_FAILURE = 1;
+      UNAVAILABLE_MESSAGE = 2;
+    }
+    optional Type type = 1;
+  }
+  message Event {
+    message DeviceChange {
+      enum Type {
+        ADDED = 1;
+        REMOVED = 2;
+        REPLACED = 3;
+      }
+      optional Type type = 1;
+      optional string device_name = 2;
+    }
+    oneof event {
+      DeviceChange device_change = 1;
+    }
+  }
+  oneof content {
+    Placeholder placeholder = 1;
+    Event event = 2;
+  }
+}

@@ -1,0 +1,32 @@
+// Copyright (c) Meta Platforms, Inc. and affiliates.
+// This source code is licensed under the BSD 3-Clause License found in the
+// LICENSE file in the root directory of this source tree.
+
+syntax = "proto2";
+
+message BackupMessage {
+  message Metadata {
+    message FrankingMetadata {
+      optional bytes franking_tag = 3;
+      optional bytes reporting_tag = 4;
+    }
+    optional string sender_id = 1;
+    optional string message_id = 2;
+    optional int64 timestamp_ms = 3;
+    optional FrankingMetadata franking_metadata = 4;
+    optional int32 payloadVersion = 5;
+    optional int32 futureProofBehavior = 6;
+    optional int32 threadTypeTag = 7;
+  }
+  message Subprotocol {
+    // Serialized with transport_event.proto:TransportEvent
+    optional bytes payload = 1;
+    optional int32 version = 2;
+  }
+  optional Metadata metadata = 1;
+  oneof payload {
+    // Serialized with msg_application.proto:MessageApplication
+    bytes encrypted_transport_message = 2;
+    Subprotocol encrypted_transport_event = 5;
+  }
+}

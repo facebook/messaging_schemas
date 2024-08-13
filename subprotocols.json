@@ -1,0 +1,126 @@
+// Copyright (c) Meta Platforms, Inc. and affiliates.
+// This source code is licensed under the BSD 3-Clause License found in the
+// LICENSE file in the root directory of this source tree.
+
+[
+    {
+        "message": "Armadillo.Content.RavenMessage.media_content",
+        "field": "image_message",
+        "deserialized_message": "ImageTransport",
+    },
+    {
+        "message": "Armadillo.Content.RavenMessage.media_content",
+        "field": "video_message",
+        "deserialized_message": "VideoTransport",
+    },
+    {
+        "message": "Armadillo.Content.ExtendedContentMessageWithSear",
+        "field": "sear_associated_message",
+        "deserialized_message": "MessageApplication",
+    },
+    {
+        "message": "Armadillo.Content.ImageGalleryMessage",
+        "field": "images",
+        "deserialized_message": "ImageTransport",
+    },
+    {
+        "message": "ExtendedContentMessage",
+        "field": "associated_message",
+        "deserialized_message": "MessageApplication",
+    },
+    {
+        "message": "ExtendedContentMessage",
+        "field": "previews",
+        "deserialized_message": "ImageTransport",
+    },
+    {
+        "message": "ExtendedContentMessage",
+        "field": "favicon",
+        "deserialized_message": "ImageTransport",
+    },
+    {
+        "message": "ExtendedContentMessage",
+        "field": "header_image",
+        "deserialized_message": "ImageTransport",
+    },
+    {
+        "message": "ConsumerApplication.MediaPayload",
+        "field": "protocol",
+        "deserialized_message": "WAMediaTransport",
+    },
+    {
+        "message": "ConsumerApplication.ImageMessage",
+        "field": "image",
+        "deserialized_message": "ImageTransport",
+    },
+    {
+        "message": "ConsumerApplication.AudioMessage",
+        "field": "audio",
+        "deserialized_message": "AudioTransport",
+    },
+    {
+        "message": "ConsumerApplication.VideoMessage",
+        "field": "video",
+        "deserialized_message": "VideoTransport",
+    },
+    {
+        "message": "ConsumerApplication.DocumentMessage",
+        "field": "document",
+        "deserialized_message": "DocumentTransport",
+    },
+    {
+        "message": "ConsumerApplication.StickerMessage",
+        "field": "sticker",
+        "deserialized_message": "StickerTransport",
+    },
+    {
+        "message": "ConsumerApplication.ExtendedTextMessage",
+        "field": "thumbnail",
+        "deserialized_message": "WAMediaTransport",
+    },
+    {
+        "message": "ConsumerApplication.ContactMessage",
+        "field": "contact",
+        "deserialized_message": "ContactTransport",
+    },
+    {
+        "message": "MessageApplication.SubProtocolPayload.sub_protocol",
+        "field": "consumer_message",
+        "deserialized_message": "ConsumerApplication",
+    },
+    {
+        "message": "MessageApplication.SubProtocolPayload.sub_protocol",
+        "field": "business_message",
+    },
+    {
+        "message": "MessageApplication.SubProtocolPayload.sub_protocol",
+        "field": "payment_message",
+    },
+    {
+        "message": "MessageApplication.SubProtocolPayload.sub_protocol",
+        "field": "multi_device",
+    },
+    {
+        "message": "MessageApplication.SubProtocolPayload.sub_protocol",
+        "field": "voip",
+    },
+    {
+        "message": "MessageApplication.SubProtocolPayload.sub_protocol",
+        "field": "armadillo",
+        "deserialized_message": "Armadillo",
+    },
+    {
+        "message": "MessageApplication.Metadata",
+        "field": "business_metadata",
+    },
+    {
+        "message": "Armadillo.Content.NoteReplyMessage.note_reply_content",
+        "field": "sticker_content",
+        "deserialized_message": "StickerTransport",
+    },
+    {
+        "message": "Armadillo.Content.NoteReplyMessage.note_reply_content",
+        "field": "video_content",
+        "deserialized_message": "VideoTransport",
+    }
+]

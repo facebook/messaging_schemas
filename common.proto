@@ -1,0 +1,43 @@
+// Copyright (c) Meta Platforms, Inc. and affiliates.
+// This source code is licensed under the BSD 3-Clause License found in the
+// LICENSE file in the root directory of this source tree.
+
+syntax = "proto2";
+
+import "google/protobuf/descriptor.proto";
+
+extend google.protobuf.FieldOptions {
+  optional bool jid = 50000;
+}
+message MessageKey {
+  optional string remote_jid = 1 [(jid) = true];
+  optional bool from_me = 2;
+  optional string id = 3;
+  optional string participant = 4 [(jid) = true];
+}
+message Command {
+  enum CommandType {
+    EVERYONE = 1;
+    SILENT = 2;
+    AI = 3;
+    AI_IMAGINE = 4;
+  }
+  optional CommandType command_type = 1;
+  optional uint32 offset = 2;
+  optional uint32 length = 3;
+  optional string validation_token = 4;
+}
+message MessageText {
+  optional string text = 1;
+  repeated string mentioned_jid = 2 [(jid) = true];
+  repeated Command commands = 3;
+}
+enum FutureProofBehavior {
+  PLACEHOLDER = 0;
+  NO_PLACEHOLDER = 1;
+  IGNORE = 2;
+}
+message SubProtocol {
+  optional bytes payload = 1;
+  optional int32 version = 2;
+}
