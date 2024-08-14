@@ -104,7 +104,7 @@ message ExtendedContentMessage {
   optional SubProtocol header_image = 14;
   optional string header_title = 15;
   enum OverlayIconGlyph {
-  	INFO            = 0;
+    INFO            = 0;
     EYE_OFF         = 1;
     NEWS_OFF        = 2;
     WARNING         = 3;
