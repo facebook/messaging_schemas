@@ -6,7 +6,7 @@ possible.
 We update the repo whenever there's an update to Meta's messaging schemas.
 
 ## Pull Requests
-We actively welcome your pull requests. Given the nature of the repo being the source of truth being Meta's production schema, this will be rare.
+We actively welcome your pull requests. Given the nature of the repo, however, the schemas are in sync with Meta's production schema, so external pull requests will be rare.
 
 1. Fork the repo and create your branch from `main`.
 2. If you've added code that should be tested, add tests.
